@@ -2,13 +2,13 @@ import ChatInterface from '../components/ChatInterface';
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-4 sm:py-8 px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-slate-800 font-avenir mb-2">
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 font-avenir mb-2">
           Chat App
         </h1>
-        <p className="text-slate-600 font-avenir">
+        <p className="text-sm sm:text-base text-slate-600 font-avenir">
           Beautiful messaging interface
         </p>
       </div>
@@ -19,8 +19,8 @@ export default function Index() {
       </div>
 
       {/* Footer */}
-      <div className="text-center mt-12">
-        <p className="text-sm text-slate-500 font-avenir">
+      <div className="text-center mt-8 sm:mt-12">
+        <p className="text-xs sm:text-sm text-slate-500 font-avenir">
           Built with modern design principles
         </p>
       </div>
