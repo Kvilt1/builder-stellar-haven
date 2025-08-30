@@ -4,154 +4,168 @@ interface Chat {
   id: string;
   name: string;
   status: "received" | "sent";
-  timeAgo: string;
+  timestamp: string;
   messageType: "chat" | "snap" | "video";
 }
+
+// Helper function to generate timestamps
+const getTimestamp = (daysAgo: number, hoursAgo: number = 0, minutesAgo: number = 0): string => {
+  const date = new Date();
+  date.setDate(date.getDate() - daysAgo);
+  date.setHours(date.getHours() - hoursAgo);
+  date.setMinutes(date.getMinutes() - minutesAgo);
+  return date.toISOString();
+};
 
 const sampleChats: Chat[] = [
   {
     id: "1",
-    name: "Example",
+    name: "Alice Johnson",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(0, 0, 30), // 30 minutes ago
     messageType: "video",
   },
   {
     id: "2",
-    name: "Example",
+    name: "Bob Smith",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(0, 2), // 2 hours ago
     messageType: "chat",
   },
   {
     id: "3",
-    name: "Example",
+    name: "Charlie Brown",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(0, 5), // 5 hours ago
     messageType: "snap",
   },
   {
     id: "4",
-    name: "Example",
+    name: "Diana Prince",
     status: "sent",
-    timeAgo: "5d",
+    timestamp: getTimestamp(1), // 1 day ago
     messageType: "video",
   },
   {
     id: "5",
-    name: "Example",
+    name: "Emma Wilson",
     status: "sent",
-    timeAgo: "5d",
+    timestamp: getTimestamp(2), // 2 days ago
     messageType: "chat",
   },
   {
     id: "6",
-    name: "Example",
+    name: "Frank Miller",
     status: "sent",
-    timeAgo: "5d",
+    timestamp: getTimestamp(3), // 3 days ago
     messageType: "snap",
   },
   {
     id: "7",
-    name: "Example",
+    name: "Grace Kelly",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(5), // 5 days ago
     messageType: "video",
   },
   {
     id: "8",
-    name: "Example",
+    name: "Henry Ford",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(6), // 6 days ago
     messageType: "chat",
   },
   {
     id: "9",
-    name: "Example",
+    name: "Iris Chang",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(7), // 1 week ago
     messageType: "snap",
   },
   {
     id: "10",
-    name: "Example",
+    name: "Jack Ryan",
     status: "sent",
-    timeAgo: "5d",
+    timestamp: getTimestamp(10), // 10 days ago
     messageType: "video",
   },
   {
     id: "11",
-    name: "Example",
+    name: "Kate Bishop",
     status: "sent",
-    timeAgo: "5d",
+    timestamp: getTimestamp(14), // 2 weeks ago
     messageType: "chat",
   },
   {
     id: "12",
-    name: "Example",
+    name: "Leo Martinez",
     status: "sent",
-    timeAgo: "5d",
+    timestamp: getTimestamp(18), // 18 days ago
     messageType: "snap",
   },
   {
     id: "13",
-    name: "Example",
+    name: "Maya Lopez",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(21), // 3 weeks ago
     messageType: "video",
   },
   {
     id: "14",
-    name: "Example",
+    name: "Noah Davis",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(25), // 25 days ago
     messageType: "chat",
   },
   {
     id: "15",
-    name: "Example",
+    name: "Olivia Chen",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(30), // 30 days ago
     messageType: "snap",
   },
   {
     id: "16",
-    name: "Example",
+    name: "Peter Parker",
     status: "sent",
-    timeAgo: "5d",
+    timestamp: getTimestamp(45), // 45 days ago
     messageType: "video",
   },
   {
     id: "17",
-    name: "Example",
+    name: "Quinn Taylor",
     status: "sent",
-    timeAgo: "5d",
+    timestamp: getTimestamp(60), // 2 months ago
     messageType: "chat",
   },
   {
     id: "18",
-    name: "Example",
+    name: "Ruby Rose",
     status: "sent",
-    timeAgo: "5d",
+    timestamp: getTimestamp(90), // 3 months ago
     messageType: "snap",
   },
   {
     id: "19",
-    name: "Example",
+    name: "Sam Wilson",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(120), // 4 months ago
     messageType: "video",
   },
   {
     id: "20",
-    name: "Example",
+    name: "Tara King",
     status: "received",
-    timeAgo: "5d",
+    timestamp: getTimestamp(180), // 6 months ago
     messageType: "chat",
   },
 ];
 
 export default function ChatInterface() {
+  // Sort chats by timestamp, newest first
+  const sortedChats = [...sampleChats].sort((a, b) => {
+    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+  });
+
   return (
     <div className="h-full flex flex-col bg-white">
       {/* Search Bar */}
@@ -182,12 +196,12 @@ export default function ChatInterface() {
 
       {/* Chat List - Takes remaining height */}
       <div className="flex-1 overflow-y-auto divide-y divide-chat-border">
-        {sampleChats.map((chat) => (
+        {sortedChats.map((chat) => (
           <ChatItem
             key={chat.id}
             name={chat.name}
             status={chat.status}
-            timeAgo={chat.timeAgo}
+            timestamp={chat.timestamp}
             messageType={chat.messageType}
           />
         ))}
