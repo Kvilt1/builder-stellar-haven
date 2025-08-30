@@ -14,10 +14,10 @@ export default {
     },
     extend: {
       spacing: {
-        '13': '3.25rem',  // 52px - for avatar inner size
-        '14': '3.5rem',   // 56px - for avatar outer size
-        '18': '4.5rem',   // 72px - for chat item height
-        '80': '20rem',    // 320px - for sidebar width
+        "13": "3.25rem", // 52px - for avatar inner size
+        "14": "3.5rem", // 56px - for avatar outer size
+        "18": "4.5rem", // 72px - for chat item height
+        "80": "20rem", // 320px - for sidebar width
       },
       fontFamily: {
         avenir: [
