@@ -34,10 +34,31 @@ export default function ChatItem({
   const iconUrl = getIconUrl(messageType, status);
 
   return (
-    <div className="flex items-center border-b border-chat-border bg-white w-full" style={{ gap: '10px', padding: '8px 12px', height: '74px', minHeight: '74px', maxHeight: '74px' }}>
+    <div
+      className="flex items-center border-b border-chat-border bg-white w-full"
+      style={{
+        gap: "10px",
+        padding: "8px 12px",
+        height: "74px",
+        minHeight: "74px",
+        maxHeight: "74px",
+      }}
+    >
       {/* Avatar */}
-      <div className="flex items-center justify-center bg-chat-avatar-bg flex-shrink-0" style={{ width: '58px', height: '58px', minWidth: '58px', padding: '2px', borderRadius: '29px' }}>
-        <div className="flex items-center justify-center flex-shrink-0" style={{ width: '54px', height: '54px' }}>
+      <div
+        className="flex items-center justify-center bg-chat-avatar-bg flex-shrink-0"
+        style={{
+          width: "58px",
+          height: "58px",
+          minWidth: "58px",
+          padding: "2px",
+          borderRadius: "29px",
+        }}
+      >
+        <div
+          className="flex items-center justify-center flex-shrink-0"
+          style={{ width: "54px", height: "54px" }}
+        >
           <svg
             width="54"
             height="54"
@@ -58,32 +79,52 @@ export default function ChatItem({
       </div>
 
       {/* User & Status */}
-      <div className="flex flex-col items-start flex-1 min-w-0" style={{ gap: '4px', height: '54px', paddingTop: '4px', paddingBottom: '4px' }}>
+      <div
+        className="flex flex-col items-start flex-1 min-w-0"
+        style={{
+          gap: "4px",
+          height: "54px",
+          paddingTop: "4px",
+          paddingBottom: "4px",
+        }}
+      >
         {/* Name */}
-        <div className="text-chat-user-name font-avenir font-normal leading-normal w-full truncate" style={{ fontSize: '16px' }}>
+        <div
+          className="text-chat-user-name font-avenir font-normal leading-normal w-full truncate"
+          style={{ fontSize: "16px" }}
+        >
           {name}
         </div>
 
         {/* Status */}
-        <div className="flex items-center w-full" style={{ gap: '4px' }}>
-          <div className="flex items-center flex-1" style={{ gap: '5px' }}>
+        <div className="flex items-center w-full" style={{ gap: "4px" }}>
+          <div className="flex items-center flex-1" style={{ gap: "5px" }}>
             {/* Message Type Icon */}
             <img
               src={iconUrl}
               alt={`${messageType} ${status}`}
               className="flex-shrink-0"
-              style={{ width: '16px', height: '16px' }}
+              style={{ width: "16px", height: "16px" }}
             />
 
-            <span className="text-chat-status-text font-avenir font-normal leading-normal capitalize" style={{ fontSize: '12px' }}>
+            <span
+              className="text-chat-status-text font-avenir font-normal leading-normal capitalize"
+              style={{ fontSize: "12px" }}
+            >
               {status}
             </span>
 
-            <span className="text-chat-status-text font-avenir font-bold leading-normal" style={{ fontSize: '12px' }}>
+            <span
+              className="text-chat-status-text font-avenir font-bold leading-normal"
+              style={{ fontSize: "12px" }}
+            >
               ·
             </span>
 
-            <span className="text-chat-status-text font-avenir font-normal leading-normal" style={{ fontSize: '12px' }}>
+            <span
+              className="text-chat-status-text font-avenir font-normal leading-normal"
+              style={{ fontSize: "12px" }}
+            >
               {timeAgo}
             </span>
           </div>

@@ -2,9 +2,15 @@ import ChatInterface from "../components/ChatInterface";
 
 export default function Index() {
   return (
-    <div className="h-screen bg-white flex overflow-hidden" style={{ minHeight: '100vh', minWidth: '1024px' }}>
+    <div
+      className="h-screen bg-white flex overflow-hidden"
+      style={{ minHeight: "100vh", minWidth: "1024px" }}
+    >
       {/* Left Panel - Chat List */}
-      <div className="border-r border-gray-200 flex flex-col" style={{ width: '320px', minWidth: '320px', maxWidth: '320px' }}>
+      <div
+        className="border-r border-gray-200 flex flex-col"
+        style={{ width: "320px", minWidth: "320px", maxWidth: "320px" }}
+      >
         <ChatInterface />
       </div>
 
