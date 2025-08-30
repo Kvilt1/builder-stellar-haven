@@ -31,9 +31,9 @@ export default function ChatItem({ name, status, timeAgo, hasVideo = false }: Ch
       </div>
 
       {/* User & Status */}
-      <div className="flex flex-col items-start gap-1 w-[236px] h-[54px] py-1 flex-shrink-0">
+      <div className="flex flex-col items-start gap-1 flex-1 min-w-0 h-[54px] py-1">
         {/* Name */}
-        <div className="text-chat-user-name font-avenir text-base font-normal leading-normal w-full">
+        <div className="text-chat-user-name font-avenir text-base font-normal leading-normal w-full truncate">
           {name}
         </div>
 
