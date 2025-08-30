@@ -2,10 +2,26 @@ interface ChatItemProps {
   name: string;
   status: 'received' | 'sent';
   timeAgo: string;
-  hasVideo?: boolean;
+  messageType: 'chat' | 'snap' | 'video';
 }
 
-export default function ChatItem({ name, status, timeAgo, hasVideo = false }: ChatItemProps) {
+const getIconUrl = (messageType: string, status: string): string => {
+  const iconMap = {
+    'chat-received': 'https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2F3dd556c8d53744608a8d7754db6e683f?format=webp&width=800',
+    'snap-received': 'https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2F622ef8ab8ecb40fe966f62dba981caea?format=webp&width=800',
+    'video-sent': 'https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2Fe3798d4481ae4ca8b80fc595e3ad425a?format=webp&width=800',
+    'snap-sent': 'https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2Fd56f2a56d2654c34a20e8f223d8ea4e5?format=webp&width=800',
+    'video-received': 'https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2F0bdd10e6331448ee9b6bdeafbf48d270?format=webp&width=800',
+    'chat-sent': 'https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2Fe5fb6c59481542c3bf516f10280a1d66?format=webp&width=800',
+  };
+  
+  const key = `${messageType}-${status}`;
+  return iconMap[key as keyof typeof iconMap] || iconMap['chat-received'];
+};
+
+export default function ChatItem({ name, status, timeAgo, messageType }: ChatItemProps) {
+  const iconUrl = getIconUrl(messageType, status);
+  
   return (
     <div className="flex items-center gap-2 sm:gap-[10px] px-3 py-2 border-b border-chat-border bg-white w-full h-[74px]">
       {/* Avatar */}
@@ -40,26 +56,15 @@ export default function ChatItem({ name, status, timeAgo, hasVideo = false }: Ch
         {/* Status */}
         <div className="flex items-center gap-1 w-full">
           <div className="flex items-center gap-[5px] flex-1">
-            {hasVideo && (
-              <svg 
-                width="16" 
-                height="17" 
-                viewBox="0 0 16 17" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-[17px]"
-              >
-                <path 
-                  d="M3.7121 13.3898L3.7141 13.3918M3.7661 13.4518L3.7671 13.4588M3.7061 2.93185L3.7041 2.93385M13.6071 7.63385L13.6271 7.64385L13.6451 7.65285C14.2291 7.90985 14.2501 8.15485 14.2501 8.16385C14.2501 8.17385 14.2291 8.41885 13.6451 8.67585L13.6261 8.68385L13.6081 8.69385L4.8381 13.1509C4.4141 13.3349 4.1021 13.4039 3.9001 13.4109C3.85465 13.4128 3.80911 13.4105 3.7641 13.4039C3.76558 13.3784 3.76859 13.353 3.7731 13.3279C3.8011 13.1579 3.9031 12.8858 4.1441 12.5138C4.5441 11.9988 4.9701 11.2858 5.3001 10.5388C5.6301 9.79285 5.9001 8.93285 5.9001 8.16385C5.9001 7.38085 5.6231 6.52085 5.2891 5.77585C4.97502 5.07592 4.58716 4.41149 4.1321 3.79385C3.8871 3.42785 3.7861 3.15985 3.7581 2.99485C3.75379 2.96972 3.75112 2.94433 3.7501 2.91885C3.79962 2.9104 3.84992 2.90738 3.9001 2.90985C4.1031 2.91585 4.4161 2.98285 4.8381 3.16685L13.6071 7.63385ZM3.7541 2.87085L3.7521 2.87785C3.7521 2.87285 3.7541 2.87085 3.7541 2.87085Z" 
-                  stroke="#A05DCD" 
-                  strokeWidth="1.5" 
-                  strokeLinejoin="round"
-                />
-              </svg>
-            )}
+            {/* Message Type Icon */}
+            <img 
+              src={iconUrl}
+              alt={`${messageType} ${status}`}
+              className="w-4 h-4 flex-shrink-0"
+            />
             
-            <span className="text-chat-status-text font-avenir text-xs font-normal leading-normal">
-              {status === 'received' ? 'Received' : 'Sent'}
+            <span className="text-chat-status-text font-avenir text-xs font-normal leading-normal capitalize">
+              {status}
             </span>
             
             <span className="text-chat-status-text font-avenir text-xs font-bold leading-normal">
