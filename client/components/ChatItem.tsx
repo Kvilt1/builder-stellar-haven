@@ -7,7 +7,7 @@ interface ChatItemProps {
 
 export default function ChatItem({ name, status, timeAgo, hasVideo = false }: ChatItemProps) {
   return (
-    <div className="flex items-center gap-[10px] px-3 py-2 border-b border-chat-border bg-white w-full max-w-[328px] h-[74px]">
+    <div className="flex items-center gap-2 sm:gap-[10px] px-3 py-2 border-b border-chat-border bg-white w-full h-[74px]">
       {/* Avatar */}
       <div className="flex items-center justify-center w-[58px] h-[58px] p-[2px] rounded-[29px] bg-chat-avatar-bg flex-shrink-0">
         <div className="flex items-center justify-center w-[54px] h-[54px] flex-shrink-0">
