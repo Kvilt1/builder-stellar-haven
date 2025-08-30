@@ -5,44 +5,65 @@ interface Chat {
   name: string;
   status: 'received' | 'sent';
   timeAgo: string;
-  hasVideo: boolean;
+  messageType: 'chat' | 'snap' | 'video';
 }
 
 const sampleChats: Chat[] = [
   {
     id: '1',
-    name: 'Example',
+    name: 'Emma Wilson',
     status: 'received',
-    timeAgo: '5d',
-    hasVideo: true,
+    timeAgo: '2m',
+    messageType: 'chat',
   },
   {
     id: '2',
-    name: 'Sarah Johnson',
-    status: 'sent',
-    timeAgo: '2h',
-    hasVideo: false,
+    name: 'Mike Chen',
+    status: 'received',
+    timeAgo: '15m',
+    messageType: 'snap',
   },
   {
     id: '3',
-    name: 'Mike Chen',
-    status: 'received',
-    timeAgo: '1d',
-    hasVideo: true,
+    name: 'Sarah Johnson',
+    status: 'sent',
+    timeAgo: '1h',
+    messageType: 'video',
   },
   {
     id: '4',
-    name: 'Emma Wilson',
-    status: 'received',
-    timeAgo: '3d',
-    hasVideo: false,
+    name: 'David Rodriguez',
+    status: 'sent',
+    timeAgo: '2h',
+    messageType: 'snap',
   },
   {
     id: '5',
-    name: 'David Rodriguez',
+    name: 'Alex Thompson',
+    status: 'received',
+    timeAgo: '4h',
+    messageType: 'video',
+  },
+  {
+    id: '6',
+    name: 'Jessica Lee',
     status: 'sent',
-    timeAgo: '1w',
-    hasVideo: true,
+    timeAgo: '1d',
+    messageType: 'chat',
+  },
+  {
+    id: '7',
+    name: 'Chris Martin',
+    status: 'received',
+    timeAgo: '2d',
+    messageType: 'chat',
+  },
+  {
+    id: '8',
+    name: 'Taylor Swift',
+    status: 'sent',
+    timeAgo: '3d',
+    messageType: 'snap',
   },
 ];
 
@@ -54,6 +75,9 @@ export default function ChatInterface() {
         <h1 className="text-xl font-semibold text-chat-user-name font-avenir">
           Messages
         </h1>
+        <p className="text-sm text-chat-status-text font-avenir mt-1">
+          All message types: Chat, Snap, Video
+        </p>
       </div>
 
       {/* Chat List */}
@@ -64,7 +88,7 @@ export default function ChatInterface() {
             name={chat.name}
             status={chat.status}
             timeAgo={chat.timeAgo}
-            hasVideo={chat.hasVideo}
+            messageType={chat.messageType}
           />
         ))}
       </div>
