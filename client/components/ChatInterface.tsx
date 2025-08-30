@@ -48,7 +48,7 @@ const sampleChats: Chat[] = [
 
 export default function ChatInterface() {
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-sm mx-auto">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
       {/* Header */}
       <div className="bg-white border-b border-chat-border px-4 py-3">
         <h1 className="text-xl font-semibold text-chat-user-name font-avenir">
