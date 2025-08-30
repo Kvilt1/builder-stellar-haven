@@ -155,7 +155,7 @@ export default function ChatInterface() {
   return (
     <div className="h-full flex flex-col bg-white">
       {/* Search Bar */}
-      <div className="bg-white border-b border-chat-border px-4 py-3 flex-shrink-0">
+      <div className="bg-white border-b border-chat-border flex-shrink-0" style={{ padding: '12px 16px', height: '58px' }}>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <svg
@@ -175,7 +175,8 @@ export default function ChatInterface() {
           <input
             type="text"
             placeholder="Search"
-            className="w-full pl-10 pr-3 py-2 text-sm text-chat-user-name font-avenir bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full text-chat-user-name font-avenir bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            style={{ paddingLeft: '40px', paddingRight: '12px', paddingTop: '8px', paddingBottom: '8px', fontSize: '14px', height: '34px' }}
           />
         </div>
       </div>
