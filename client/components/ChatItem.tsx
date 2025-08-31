@@ -4,6 +4,7 @@ interface ChatItemProps {
   timestamp: string;
   messageType: "chat" | "snap" | "video";
   bitmoji?: string;
+  onClick?: () => void;
 }
 
 const getIconUrl = (messageType: string, status: string): string => {
@@ -89,13 +90,17 @@ export default function ChatItem({
   timestamp,
   messageType,
   bitmoji,
+  onClick,
 }: ChatItemProps) {
   const iconUrl = getIconUrl(messageType, status);
   const avatarColor = getAvatarColor(name);
   const timeAgo = formatTimeAgo(timestamp);
 
   return (
-    <div className="flex items-center gap-2.5 px-3 py-2 border-b border-chat-border bg-white w-full h-18 min-h-18">
+    <div 
+      className="flex items-center gap-2.5 px-3 py-2 border-b border-chat-border bg-white w-full h-18 min-h-18 cursor-pointer hover:bg-gray-50 transition-colors"
+      onClick={onClick}
+    >
       {/* Avatar */}
       <div className="flex items-center justify-center w-14 h-14 min-w-14 p-0.5 rounded-full bg-chat-avatar-bg flex-shrink-0">
         {bitmoji ? (

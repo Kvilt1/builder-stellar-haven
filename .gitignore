@@ -22,7 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
+/.serena
 .config/
 !.env
 /public/assets/bitmoji/

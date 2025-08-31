@@ -181,7 +181,11 @@ const sampleChats: Chat[] = [
   },
 ];
 
-export default function ChatInterface() {
+interface ChatInterfaceProps {
+  onChatSelect: (chat: Chat) => void;
+}
+
+export default function ChatInterface({ onChatSelect }: ChatInterfaceProps) {
   // Sort chats by timestamp, newest first
   const sortedChats = [...sampleChats].sort((a, b) => {
     return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
@@ -225,6 +229,7 @@ export default function ChatInterface() {
             timestamp={chat.timestamp}
             messageType={chat.messageType}
             bitmoji={chat.bitmoji}
+            onClick={() => onChatSelect(chat)}
           />
         ))}
       </div>
