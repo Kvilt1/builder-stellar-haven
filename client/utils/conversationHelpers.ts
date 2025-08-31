@@ -130,7 +130,7 @@ export function getMessageStatus(isSender: boolean): string {
  * @param isSender Whether this is the sender
  * @returns Icon URL path
  */
-export function getMediaIconUrl(type: 'snap' | 'video', isSender: boolean): string {
+export function getMediaIconUrl(type: 'snap' | 'video' | 'chat', isSender: boolean): string {
   const status = isSender ? 'sent' : 'received';
   return `/assets/icons14x/${type}-${status}.svg`;
 }

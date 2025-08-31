@@ -1,9 +1,11 @@
 interface ConversationHeaderProps {
   username: string;
   onBack: () => void;
+  onGalleryClick: () => void;
+  isGalleryActive: boolean;
 }
 
-export default function ConversationHeader({ username, onBack }: ConversationHeaderProps) {
+export default function ConversationHeader({ username, onBack, onGalleryClick, isGalleryActive }: ConversationHeaderProps) {
   return (
     <div className="flex items-center h-14 py-2.5 px-3 bg-white border-b border-[#E1E1E1]">
       {/* Left side: Close button and Name badge */}
@@ -37,8 +39,31 @@ export default function ConversationHeader({ username, onBack }: ConversationHea
         </div>
       </div>
 
-      {/* Right side: Media Icon - Exact positioning */}
-      <div className="flex items-center pr-3">
+      {/* Right side: Gallery and Media Icons */}
+      <div className="flex items-center gap-2 pr-3">
+        {/* Gallery Button */}
+        <button 
+          onClick={onGalleryClick}
+          className={`flex items-center justify-center p-2.5 rounded-[37px] border border-black border-opacity-10 transition-colors ${
+            isGalleryActive ? 'bg-[#ECEFF1]' : 'hover:bg-gray-50'
+          }`}
+          title="View Gallery"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect x="1" y="1" width="6" height="6" rx="0.5" stroke="#16191C" strokeOpacity="0.56" strokeWidth="1.5"/>
+            <rect x="9" y="1" width="6" height="6" rx="0.5" stroke="#16191C" strokeOpacity="0.56" strokeWidth="1.5"/>
+            <rect x="1" y="9" width="6" height="6" rx="0.5" stroke="#16191C" strokeOpacity="0.56" strokeWidth="1.5"/>
+            <rect x="9" y="9" width="6" height="6" rx="0.5" stroke="#16191C" strokeOpacity="0.56" strokeWidth="1.5"/>
+          </svg>
+        </button>
+
+        {/* Existing Media Icon */}
         <button className="flex items-center justify-center p-2.5 rounded-[37px] border border-black border-opacity-10 hover:bg-gray-50 transition-colors">
           <svg
             width="16"
