@@ -9,7 +9,7 @@ export interface BaseUserData {
 export interface MockChat {
   username: string;
   latestMessageDate: string; // ISO format timestamp
-  messageType: 'chat' | 'snap' | 'video';
+  messageType: 'chat' | 'snap' | 'video' | 'voice';
   isSender: boolean; // true = sent (status: 'sent'), false = received (status: 'received')
   bitmoji?: string; // Optional, will use generated avatar if not provided
 }
@@ -18,8 +18,9 @@ export interface MockChat {
 export interface ConversationMessage {
   id: string;
   isSender: boolean;
-  type: 'chat' | 'snap' | 'video';
+  type: 'chat' | 'snap' | 'video' | 'voice';
   text?: string; // Only for chat messages
+  audioSrc?: string; // Only for voice messages
   timestamp: string; // ISO format
 }
 
@@ -37,6 +38,6 @@ export interface Chat {
   name: string;
   status: "received" | "sent";
   timestamp: string;
-  messageType: "chat" | "snap" | "video";
+  messageType: "chat" | "snap" | "video" | "voice";
   bitmoji?: string;
 }

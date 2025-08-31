@@ -126,13 +126,15 @@ export function getMessageStatus(isSender: boolean): string {
 
 /**
  * Get icon URL for media messages
- * @param type Message type (snap or video)
+ * @param type Message type (snap, video, voice, or chat)
  * @param isSender Whether this is the sender
  * @returns Icon URL path
  */
-export function getMediaIconUrl(type: 'snap' | 'video' | 'chat', isSender: boolean): string {
+export function getMediaIconUrl(type: 'snap' | 'video' | 'chat' | 'voice', isSender: boolean): string {
   const status = isSender ? 'sent' : 'received';
-  return `/assets/icons14x/${type}-${status}.svg`;
+  // Voice messages use chat icons
+  const iconType = type === 'voice' ? 'chat' : type;
+  return `/assets/icons14x/${iconType}-${status}.svg`;
 }
 
 /**

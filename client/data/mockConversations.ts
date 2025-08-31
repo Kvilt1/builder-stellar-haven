@@ -18,8 +18,10 @@ export const mockConversations: ConversationData = {
     { id: 'msg-1-4', isSender: true, type: 'chat', text: 'I\'m good! Just finished work', timestamp: getTimestamp(2, 7) },
     { id: 'msg-1-5', isSender: false, type: 'video', timestamp: getTimestamp(1, 3) },
     { id: 'msg-1-6', isSender: true, type: 'snap', timestamp: getTimestamp(1, 2) },
-    { id: 'msg-1-7', isSender: false, type: 'chat', text: 'That looks amazing! Where was this taken? I\'ve been wanting to visit somewhere similar for my vacation', timestamp: getTimestamp(0, 1) },
-    { id: 'msg-1-8', isSender: true, type: 'chat', text: 'It\'s at the new coffee shop downtown. You should definitely check it out when you have time!', timestamp: getTimestamp(0, 0, 30) },
+    { id: 'msg-1-7', isSender: false, type: 'voice', audioSrc: '/assets/audio/sample-voice-1.mp3', timestamp: getTimestamp(0, 2) },
+    { id: 'msg-1-8', isSender: false, type: 'chat', text: 'That looks amazing! Where was this taken? I\'ve been wanting to visit somewhere similar for my vacation', timestamp: getTimestamp(0, 1) },
+    { id: 'msg-1-9', isSender: true, type: 'voice', audioSrc: '/assets/audio/sample-voice-2.mp3', timestamp: getTimestamp(0, 0, 45) },
+    { id: 'msg-1-10', isSender: true, type: 'chat', text: 'It\'s at the new coffee shop downtown. You should definitely check it out when you have time!', timestamp: getTimestamp(0, 0, 30) },
   ],
 
   'chat-2': [ // Bob Smith
@@ -29,7 +31,8 @@ export const mockConversations: ConversationData = {
     { id: 'msg-2-4', isSender: false, type: 'video', timestamp: getTimestamp(2, 8) },
     { id: 'msg-2-5', isSender: false, type: 'chat', text: 'Great presentation today!', timestamp: getTimestamp(1, 6) },
     { id: 'msg-2-6', isSender: true, type: 'chat', text: 'Thanks! I spent a lot of time preparing for it. Really glad it went well and everyone seemed engaged', timestamp: getTimestamp(1, 5) },
-    { id: 'msg-2-7', isSender: false, type: 'snap', timestamp: getTimestamp(0, 2) },
+    { id: 'msg-2-7', isSender: false, type: 'voice', audioSrc: '/assets/audio/sample-voice-3.mp3', timestamp: getTimestamp(0, 3) },
+    { id: 'msg-2-8', isSender: false, type: 'snap', timestamp: getTimestamp(0, 2) },
   ],
 
   'chat-3': [ // Charlie Brown

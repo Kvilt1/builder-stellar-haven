@@ -1,6 +1,6 @@
 interface ChatStatusProps {
   status: 'received' | 'sent';
-  messageType: 'chat' | 'snap' | 'video';
+  messageType: 'chat' | 'snap' | 'video' | 'voice';
   timeAgo: string;
   iconUrl: string;
 }

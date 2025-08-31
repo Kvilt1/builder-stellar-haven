@@ -2,10 +2,12 @@ import MessageHeader from './MessageHeader';
 import MessageHighlight from './MessageHighlight';
 import TextMessage from './TextMessage';
 import MediaMessage from './MediaMessage';
+import VoiceNote from './VoiceNote';
 
 interface Message {
   id: string;
   text?: string;
+  audioSrc?: string;
   type: string;
   isSender: boolean;
 }
@@ -28,6 +30,7 @@ export default function MessageItem({
   shouldWrapText
 }: MessageItemProps) {
   const isTextMessage = message.type === 'chat';
+  const isVoiceMessage = message.type === 'voice';
   const shouldWrap = isTextMessage && message.text ? shouldWrapText(message.text) : false;
   
   return (
@@ -45,6 +48,11 @@ export default function MessageItem({
         
         {isTextMessage ? (
           <TextMessage text={message.text || ''} shouldWrap={shouldWrap} />
+        ) : isVoiceMessage ? (
+          <VoiceNote 
+            audioSrc={message.audioSrc || '/assets/audio/sample-voice-note.mp3'}
+            senderColor={senderColor}
+          />
         ) : (
           <MediaMessage 
             type={message.type}
