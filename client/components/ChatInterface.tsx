@@ -6,6 +6,7 @@ interface Chat {
   status: "received" | "sent";
   timestamp: string;
   messageType: "chat" | "snap" | "video";
+  bitmoji?: string;
 }
 
 // Helper function to generate timestamps
@@ -24,6 +25,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(0, 0, 30), // 30 minutes ago
     messageType: "video",
+    // No bitmoji specified - will use default colored avatar
   },
   {
     id: "2",
@@ -31,6 +33,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(0, 2), // 2 hours ago
     messageType: "chat",
+    bitmoji: "blobhob.svg", // Assigning a random bitmoji
   },
   {
     id: "3",
@@ -38,6 +41,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(0, 5), // 5 hours ago
     messageType: "snap",
+    // No bitmoji - will use default colored avatar
   },
   {
     id: "4",
@@ -45,6 +49,7 @@ const sampleChats: Chat[] = [
     status: "sent",
     timestamp: getTimestamp(1), // 1 day ago
     messageType: "video",
+    bitmoji: "djoniloek.svg",
   },
   {
     id: "5",
@@ -52,6 +57,7 @@ const sampleChats: Chat[] = [
     status: "sent",
     timestamp: getTimestamp(2), // 2 days ago
     messageType: "chat",
+    bitmoji: "emmadgaard.svg",
   },
   {
     id: "6",
@@ -59,6 +65,7 @@ const sampleChats: Chat[] = [
     status: "sent",
     timestamp: getTimestamp(3), // 3 days ago
     messageType: "snap",
+    bitmoji: "fridibubble.svg",
   },
   {
     id: "7",
@@ -66,6 +73,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(5), // 5 days ago
     messageType: "video",
+    bitmoji: "soljagrace.svg",
   },
   {
     id: "8",
@@ -73,6 +81,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(6), // 6 days ago
     messageType: "chat",
+    bitmoji: "hgudmundsen9.svg",
   },
   {
     id: "9",
@@ -80,6 +89,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(7), // 1 week ago
     messageType: "snap",
+    bitmoji: "irismaria06.svg",
   },
   {
     id: "10",
@@ -87,6 +97,7 @@ const sampleChats: Chat[] = [
     status: "sent",
     timestamp: getTimestamp(10), // 10 days ago
     messageType: "video",
+    bitmoji: "jkjelnes.svg",
   },
   {
     id: "11",
@@ -94,6 +105,7 @@ const sampleChats: Chat[] = [
     status: "sent",
     timestamp: getTimestamp(14), // 2 weeks ago
     messageType: "chat",
+    bitmoji: "katrinsjurdardo.svg",
   },
   {
     id: "12",
@@ -101,6 +113,7 @@ const sampleChats: Chat[] = [
     status: "sent",
     timestamp: getTimestamp(18), // 18 days ago
     messageType: "snap",
+    // No bitmoji - will use default colored avatar
   },
   {
     id: "13",
@@ -108,6 +121,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(21), // 3 weeks ago
     messageType: "video",
+    bitmoji: "magylol12.svg",
   },
   {
     id: "14",
@@ -115,6 +129,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(25), // 25 days ago
     messageType: "chat",
+    bitmoji: "ndahl_25.svg",
   },
   {
     id: "15",
@@ -122,6 +137,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(30), // 30 days ago
     messageType: "snap",
+    bitmoji: "odaeyd.svg",
   },
   {
     id: "16",
@@ -129,6 +145,7 @@ const sampleChats: Chat[] = [
     status: "sent",
     timestamp: getTimestamp(45), // 45 days ago
     messageType: "video",
+    bitmoji: "petersensilrid.svg",
   },
   {
     id: "17",
@@ -136,6 +153,7 @@ const sampleChats: Chat[] = [
     status: "sent",
     timestamp: getTimestamp(60), // 2 months ago
     messageType: "chat",
+    // No bitmoji - will use default colored avatar
   },
   {
     id: "18",
@@ -143,6 +161,7 @@ const sampleChats: Chat[] = [
     status: "sent",
     timestamp: getTimestamp(90), // 3 months ago
     messageType: "snap",
+    bitmoji: "ronja.isaksen.svg",
   },
   {
     id: "19",
@@ -150,6 +169,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(120), // 4 months ago
     messageType: "video",
+    bitmoji: "samalsdottir.svg",
   },
   {
     id: "20",
@@ -157,6 +177,7 @@ const sampleChats: Chat[] = [
     status: "received",
     timestamp: getTimestamp(180), // 6 months ago
     messageType: "chat",
+    bitmoji: "teresamariad.svg",
   },
 ];
 
@@ -203,6 +224,7 @@ export default function ChatInterface() {
             status={chat.status}
             timestamp={chat.timestamp}
             messageType={chat.messageType}
+            bitmoji={chat.bitmoji}
           />
         ))}
       </div>
