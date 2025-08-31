@@ -1,3 +1,6 @@
+import { MockChat, BaseUserData, Chat } from '../data/types';
+import { mockConversations } from '../data/mockConversations';
+
 export const getIconUrl = (messageType: string, status: string): string => {
   const iconMap = {
     "chat-received": "/assets/icons16x17/chat-received.svg",
@@ -73,4 +76,42 @@ export const formatTimeAgo = (timestamp: string): string => {
   const month = String(messageDate.getMonth() + 1).padStart(2, '0');
   const year = messageDate.getFullYear();
   return `${day}/${month}/${year}`;
+};
+
+export const generateMockChatsFromConversations = (baseUsers: BaseUserData[]): MockChat[] => {
+  const chats: MockChat[] = [];
+  
+  baseUsers.forEach((user, index) => {
+    const chatId = `chat-${index + 1}`;
+    const messages = mockConversations[chatId];
+    
+    if (messages && messages.length > 0) {
+      // Get the latest message
+      const latestMessage = messages[messages.length - 1];
+      
+      chats.push({
+        username: user.username,
+        latestMessageDate: latestMessage.timestamp,
+        messageType: latestMessage.type,
+        isSender: latestMessage.isSender,
+        bitmoji: user.bitmoji
+      });
+    }
+  });
+  
+  // Sort by latest message date (most recent first)
+  return chats.sort((a, b) => 
+    new Date(b.latestMessageDate).getTime() - new Date(a.latestMessageDate).getTime()
+  );
+};
+
+export const convertMockChatsToChats = (mockChats: MockChat[]): Chat[] => {
+  return mockChats.map((mockChat, index) => ({
+    id: `chat-${index + 1}`,
+    name: mockChat.username,
+    status: mockChat.isSender ? 'sent' : 'received',
+    timestamp: mockChat.latestMessageDate,
+    messageType: mockChat.messageType,
+    bitmoji: mockChat.bitmoji
+  }));
 };
