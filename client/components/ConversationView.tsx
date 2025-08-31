@@ -1,4 +1,13 @@
 import ConversationHeader from "./ConversationHeader";
+import { mockConversations } from "../data/mockConversations";
+import { 
+  getUserColor, 
+  getUsername, 
+  groupMessagesByDate, 
+  getMessageStatus,
+  getMediaIconUrl,
+  shouldWrapText 
+} from "../utils/conversationHelpers";
 
 interface Chat {
   id: string;
@@ -15,37 +24,11 @@ interface ConversationViewProps {
 }
 
 export default function ConversationView({ chat, onClose }: ConversationViewProps) {
-  // Mock messages data - in production this would come from props or state
-  const messages = [
-    {
-      id: '1',
-      date: 'APRIL 25',
-      items: [
-        { id: 'm1', sender: 'Me', type: 'snap' as const, status: 'received' as const, text: 'Received' },
-        { id: 'm2', sender: 'Me', type: 'video' as const, status: 'sent' as const, text: 'Opened' },
-        { id: 'm3', sender: 'Me', type: 'video' as const, status: 'received' as const, text: 'Received' },
-        { id: 'm4', sender: 'Me', type: 'chat' as const, text: 'Here is a example message' },
-        { id: 'm5', sender: 'Friend', type: 'chat' as const, text: 'Here is a example message' },
-        { id: 'm6', sender: 'Friend', type: 'video' as const, status: 'received' as const, text: 'Received' },
-        { id: 'm7', sender: 'Friend', type: 'snap' as const, status: 'received' as const, text: 'Received' },
-      ]
-    },
-    {
-      id: '2',
-      date: 'APRIL 27',
-      items: [
-        { id: 'm8', sender: 'Username', type: 'chat' as const, text: 'Here is a example message' },
-      ]
-    }
-  ];
-
-  const getSenderColor = (sender: string) => {
-    return sender === 'Me' ? '#FF1D1D' : '#A073F7';
-  };
-
-  const getMediaIconUrl = (type: 'snap' | 'video', status: 'sent' | 'received') => {
-    return `/assets/icons14x/${type}-${status}.svg`;
-  };
+  // Get conversation messages for this chat
+  const messages = mockConversations[chat.id] || [];
+  
+  // Group messages by date
+  const messageGroups = groupMessagesByDate(messages);
 
   return (
     <div className="flex-1 flex flex-col bg-white">
@@ -64,8 +47,8 @@ export default function ConversationView({ chat, onClose }: ConversationViewProp
           }}
         >
           <div className="flex flex-col" style={{ gap: '13px' }}>
-            {messages.map((messageGroup) => (
-              <div key={messageGroup.id} className="flex flex-col items-center" style={{ gap: '11px', padding: '25px 0' }}>
+            {messageGroups.map((messageGroup, groupIndex) => (
+              <div key={`group-${groupIndex}`} className="flex flex-col items-center" style={{ gap: '11px', padding: '25px 0' }}>
                 {/* Date separator */}
                 <div 
                   className="text-[10px] font-semibold uppercase"
@@ -81,91 +64,102 @@ export default function ConversationView({ chat, onClose }: ConversationViewProp
 
                 {/* Messages container - Full width responsive */}
                 <div className="flex flex-col w-full" style={{ gap: '11px' }}>
-                  {messageGroup.items.map((message) => (
-                    <div key={message.id} className="relative w-full" style={{ height: message.type === 'chat' ? '38px' : '74px' }}>
-                      {/* Sender name */}
-                      <div 
-                        className="absolute text-[12px] font-semibold uppercase"
-                        style={{
-                          fontFamily: 'Avenir Next, -apple-system, BlinkMacSystemFont, sans-serif',
-                          fontWeight: 600,
-                          color: getSenderColor(message.sender),
-                          lineHeight: '1.366em',
-                          height: '16px',
-                          left: '0',
-                          top: '0'
-                        }}
-                      >
-                        {message.sender}
-                      </div>
-
-                      {/* Message content row */}
-                      <div 
-                        className="absolute flex items-center"
-                        style={{ 
-                          gap: '6px',
-                          top: message.type === 'chat' ? '16.97px' : '18px',
-                          left: '0'
-                        }}
-                      >
-                        {/* Color highlight bar */}
+                  {messageGroup.messages.map((message) => {
+                    const senderName = getUsername(chat.name, message.isSender);
+                    const senderColor = getUserColor(chat.id, message.isSender);
+                    const isTextMessage = message.type === 'chat';
+                    const messageHeight = isTextMessage ? 'auto' : '74px';
+                    const shouldWrap = isTextMessage && message.text ? shouldWrapText(message.text) : false;
+                    
+                    return (
+                      <div key={message.id} className="relative w-full" style={{ minHeight: isTextMessage ? '38px' : '74px' }}>
+                        {/* Sender name */}
                         <div 
+                          className="absolute text-[12px] font-semibold uppercase"
                           style={{
-                            width: '1.5px',
-                            height: message.type === 'chat' ? '21px' : '56px',
-                            backgroundColor: getSenderColor(message.sender),
-                            borderRadius: '2px 0 0 2px',
-                            flexShrink: 0
+                            fontFamily: 'Avenir Next, -apple-system, BlinkMacSystemFont, sans-serif',
+                            fontWeight: 600,
+                            color: senderColor,
+                            lineHeight: '1.366em',
+                            height: '16px',
+                            left: '0',
+                            top: '0'
                           }}
-                        />
+                        >
+                          {senderName}
+                        </div>
 
-                        {/* Message box */}
-                        {message.type === 'chat' ? (
+                        {/* Message content row */}
+                        <div 
+                          className={`flex ${isTextMessage ? 'items-start' : 'items-center'}`}
+                          style={{ 
+                            gap: '6px',
+                            marginTop: isTextMessage ? '16.97px' : '18px',
+                          }}
+                        >
+                          {/* Color highlight bar */}
                           <div 
                             style={{
-                              fontFamily: 'Avenir Next, -apple-system, BlinkMacSystemFont, sans-serif',
-                              fontWeight: 500,
-                              fontSize: '16px',
-                              color: '#16191C',
-                              lineHeight: '1.366em'
+                              width: '1.5px',
+                              height: isTextMessage ? 'auto' : '56px',
+                              minHeight: isTextMessage ? '21px' : '56px',
+                              backgroundColor: senderColor,
+                              borderRadius: '2px 0 0 2px',
+                              flexShrink: 0,
+                              alignSelf: 'stretch'
                             }}
-                          >
-                            {message.text}
-                          </div>
-                        ) : (
-                          <div 
-                            className="flex items-center"
-                            style={{
-                              gap: '11px',
-                              padding: '10px 12px',
-                              border: '1.5px solid #E1E1E1',
-                              borderRadius: '2px',
-                              width: '438px',
-                              height: '42px',
-                              backgroundColor: 'white'
-                            }}
-                          >
-                            <img 
-                              src={getMediaIconUrl(message.type, message.status!)}
-                              alt={`${message.type} ${message.status}`}
-                              className="w-[14px] h-[14px]"
-                            />
-                            <span 
-                              className="text-[16px]"
+                          />
+
+                          {/* Message box */}
+                          {isTextMessage ? (
+                            <div 
                               style={{
                                 fontFamily: 'Avenir Next, -apple-system, BlinkMacSystemFont, sans-serif',
                                 fontWeight: 500,
+                                fontSize: '16px',
                                 color: '#16191C',
-                                lineHeight: '1.366em'
+                                lineHeight: '1.366em',
+                                maxWidth: shouldWrap ? '50%' : 'none',
+                                wordWrap: shouldWrap ? 'break-word' : 'normal'
                               }}
                             >
                               {message.text}
-                            </span>
-                          </div>
-                        )}
+                            </div>
+                          ) : (
+                            <div 
+                              className="flex items-center"
+                              style={{
+                                gap: '11px',
+                                padding: '10px 12px',
+                                border: '1.5px solid #E1E1E1',
+                                borderRadius: '2px',
+                                width: '438px',
+                                height: '42px',
+                                backgroundColor: 'white'
+                              }}
+                            >
+                              <img 
+                                src={getMediaIconUrl(message.type, message.isSender)}
+                                alt={`${message.type} ${message.isSender ? 'sent' : 'received'}`}
+                                className="w-[14px] h-[14px]"
+                              />
+                              <span 
+                                className="text-[16px]"
+                                style={{
+                                  fontFamily: 'Avenir Next, -apple-system, BlinkMacSystemFont, sans-serif',
+                                  fontWeight: 500,
+                                  color: '#16191C',
+                                  lineHeight: '1.366em'
+                                }}
+                              >
+                                {getMessageStatus(message.isSender)}
+                              </span>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             ))}
