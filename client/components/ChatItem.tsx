@@ -1,43 +1,110 @@
 interface ChatItemProps {
   name: string;
   status: "received" | "sent";
-  timeAgo: string;
+  timestamp: string;
   messageType: "chat" | "snap" | "video";
+  bitmoji?: string;
 }
 
 const getIconUrl = (messageType: string, status: string): string => {
   const iconMap = {
-    "chat-received":
-      "https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2F3dd556c8d53744608a8d7754db6e683f?format=webp&width=800",
-    "snap-received":
-      "https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2F622ef8ab8ecb40fe966f62dba981caea?format=webp&width=800",
-    "video-sent":
-      "https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2Fe3798d4481ae4ca8b80fc595e3ad425a?format=webp&width=800",
-    "snap-sent":
-      "https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2Fd56f2a56d2654c34a20e8f223d8ea4e5?format=webp&width=800",
-    "video-received":
-      "https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2F0bdd10e6331448ee9b6bdeafbf48d270?format=webp&width=800",
-    "chat-sent":
-      "https://cdn.builder.io/api/v1/image/assets%2Fa549c5a6bf3845d1b2c8810295edf4b2%2Fe5fb6c59481542c3bf516f10280a1d66?format=webp&width=800",
+    "chat-received": "/assets/icons/chat-recived.svg",
+    "snap-received": "/assets/icons/snap-received.svg",
+    "video-sent": "/assets/icons/video-sent.svg",
+    "snap-sent": "/assets/icons/snap-sent.svg",
+    "video-received": "/assets/icons/video-received.svg",
+    "chat-sent": "/assets/icons/chat-sent.svg",
   };
 
   const key = `${messageType}-${status}`;
   return iconMap[key as keyof typeof iconMap] || iconMap["chat-received"];
 };
 
+const avatarColors = [
+  "#4A90E2", // Soft blue
+  "#5BA0F2", // Light blue
+  "#FF8C42", // Warm orange
+  "#FFA552", // Light orange
+  "#9B59B6", // Purple
+  "#AB69C6", // Light purple
+  "#52C41A", // Green
+  "#73D13D", // Light green
+  "#FF6B9D", // Pink
+  "#FF7BA3", // Light pink
+  "#20B2AA", // Teal
+  "#40C9C6", // Light teal
+  "#FFB347", // Yellow-orange
+  "#FFC857", // Light yellow
+  "#E74C3C", // Red
+  "#EC7063", // Light red
+];
+
+const getAvatarColor = (name: string): string => {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    const char = name.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  const index = Math.abs(hash) % avatarColors.length;
+  return avatarColors[index];
+};
+
+const formatTimeAgo = (timestamp: string): string => {
+  const now = new Date();
+  const messageDate = new Date(timestamp);
+  const diffMs = now.getTime() - messageDate.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffMinutes = Math.floor(diffMs / (1000 * 60));
+
+  if (diffMinutes < 60) {
+    if (diffMinutes < 1) return "now";
+    return `${diffMinutes}m`;
+  }
+  
+  if (diffHours < 24) {
+    return `${diffHours}h`;
+  }
+  
+  if (diffDays < 7) {
+    return `${diffDays}d`;
+  }
+  
+  if (diffDays < 28) {
+    const weeks = Math.floor(diffDays / 7);
+    return `${weeks}w`;
+  }
+  
+  // Format as DD/MM/YYYY for dates older than 4 weeks
+  const day = String(messageDate.getDate()).padStart(2, '0');
+  const month = String(messageDate.getMonth() + 1).padStart(2, '0');
+  const year = messageDate.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
 export default function ChatItem({
   name,
   status,
-  timeAgo,
+  timestamp,
   messageType,
+  bitmoji,
 }: ChatItemProps) {
   const iconUrl = getIconUrl(messageType, status);
+  const avatarColor = getAvatarColor(name);
+  const timeAgo = formatTimeAgo(timestamp);
 
   return (
     <div className="flex items-center gap-2.5 px-3 py-2 border-b border-chat-border bg-white w-full h-18 min-h-18">
       {/* Avatar */}
       <div className="flex items-center justify-center w-14 h-14 min-w-14 p-0.5 rounded-full bg-chat-avatar-bg flex-shrink-0">
-        <div className="flex items-center justify-center w-13 h-13 flex-shrink-0">
+        {bitmoji ? (
+          <img
+            src={`/assets/bitmoji/${bitmoji}`}
+            alt={name}
+            className="w-13 h-13 flex-shrink-0 rounded-full"
+          />
+        ) : (
           <svg
             className="w-13 h-13 flex-shrink-0"
             viewBox="0 0 54 54"
@@ -45,14 +112,14 @@ export default function ChatItem({
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M26.9998 54.0599C33.4798 54.0599 39.4798 51.7799 44.1598 47.9399C43.3198 46.6799 42.3598 45.7799 41.3398 44.9399C38.2198 42.4799 33.7798 41.5799 30.7198 41.0399L30.5998 39.8399C35.2798 37.0799 36.4198 34.1399 38.2798 27.9599L38.3398 27.5399C38.3398 27.5399 39.9598 26.8799 40.1998 23.8799C40.5598 19.7999 38.8798 20.9999 38.8798 20.6999C39.0598 18.5999 38.9998 15.8399 38.3998 13.7999C37.1398 9.41994 32.8798 5.93994 26.9998 5.93994C21.1198 5.93994 16.8598 9.35994 15.5998 13.7999C14.9998 15.8399 14.9398 18.5999 15.1198 20.7599C15.1198 21.0599 13.4998 19.8599 13.7998 23.9399C14.0398 26.9399 15.6598 27.5999 15.6598 27.5999L15.7198 28.0199C17.5798 34.1999 18.7198 37.1399 23.3998 39.8999L23.2798 41.0999C20.2798 41.6399 15.7798 42.5399 12.6598 44.9999C11.6398 45.8399 10.6798 46.7399 9.83984 47.9999C14.5198 51.7799 20.5198 54.0599 26.9998 54.0599Z"
-              fill="#888888"
+              d="M27 54.06C33.48 54.06 39.48 51.78 44.16 47.94C43.32 46.68 42.36 45.78 41.34 44.94C38.22 42.48 33.78 41.58 30.72 41.04L30.6 39.84C35.28 37.08 36.42 34.14 38.28 27.96L38.34 27.54C38.34 27.54 39.96 26.88 40.2 23.88C40.56 19.8 38.88 21 38.88 20.7C39.06 18.6 39 15.84 38.4 13.8C37.14 9.42 32.88 5.94 27 5.94C21.12 5.94 16.86 9.36 15.6 13.8C15 15.84 14.94 18.6 15.12 20.76C15.12 21.06 13.5 19.86 13.8 23.94C14.04 26.94 15.66 27.6 15.66 27.6L15.72 28.02C17.58 34.2 18.72 37.14 23.4 39.9L23.28 41.1C20.28 41.64 15.78 42.54 12.66 45C11.64 45.84 10.68 46.74 9.84 48C14.52 51.78 20.52 54.06 27 54.06Z"
+              fill={avatarColor}
               stroke="black"
               strokeOpacity="0.2"
               strokeWidth="0.9"
             />
           </svg>
-        </div>
+        )}
       </div>
 
       {/* User & Status */}
