@@ -9,12 +9,12 @@ interface ChatItemProps {
 
 const getIconUrl = (messageType: string, status: string): string => {
   const iconMap = {
-    "chat-received": "/assets/icons/chat-recived.svg",
-    "snap-received": "/assets/icons/snap-received.svg",
-    "video-sent": "/assets/icons/video-sent.svg",
-    "snap-sent": "/assets/icons/snap-sent.svg",
-    "video-received": "/assets/icons/video-received.svg",
-    "chat-sent": "/assets/icons/chat-sent.svg",
+    "chat-received": "/assets/icons16x17/chat-received.svg",
+    "snap-received": "/assets/icons16x17/snap-received.svg",
+    "video-sent": "/assets/icons16x17/video-sent.svg",
+    "snap-sent": "/assets/icons16x17/snap-sent.svg",
+    "video-received": "/assets/icons16x17/video-received.svg",
+    "chat-sent": "/assets/icons16x17/chat-sent.svg",
   };
 
   const key = `${messageType}-${status}`;
