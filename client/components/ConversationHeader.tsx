@@ -5,7 +5,7 @@ interface ConversationHeaderProps {
 
 export default function ConversationHeader({ username, onBack }: ConversationHeaderProps) {
   return (
-    <div className="flex items-center h-14 py-2.5 px-0 bg-white">
+    <div className="flex items-center h-14 py-2.5 px-3 bg-white border-b border-[#E1E1E1]">
       {/* Left side: Close button and Name badge */}
       <div className="flex items-center gap-3 flex-1">
         {/* Back Button - Exact Figma specs: 36x36px */}

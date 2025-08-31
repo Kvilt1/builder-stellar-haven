@@ -15,9 +15,9 @@ export default function Index() {
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
 
   return (
-    <div className="h-screen bg-white flex overflow-hidden min-h-screen">
+    <div className="h-screen bg-white flex overflow-hidden min-h-screen gap-[9px]">
       {/* Left Panel - Chat List */}
-      <div className="w-80 min-w-80 max-w-80 border-r border-gray-200 flex flex-col">
+      <div className="w-[341px] min-w-[341px] max-w-[341px] border-r border-[#E1E1E1] flex flex-col">
         <ChatInterface onChatSelect={setSelectedChat} />
       </div>
 

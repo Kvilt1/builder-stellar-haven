@@ -21,13 +21,13 @@ export default function ConversationView({ chat, onClose }: ConversationViewProp
       id: '1',
       date: 'APRIL 25',
       items: [
-        { id: 'm1', sender: 'Me', type: 'snap' as const, status: 'received' as const, text: 'Opened' },
+        { id: 'm1', sender: 'Me', type: 'snap' as const, status: 'received' as const, text: 'Received' },
         { id: 'm2', sender: 'Me', type: 'video' as const, status: 'sent' as const, text: 'Opened' },
-        { id: 'm3', sender: 'Me', type: 'video' as const, status: 'received' as const, text: 'Opened' },
+        { id: 'm3', sender: 'Me', type: 'video' as const, status: 'received' as const, text: 'Received' },
         { id: 'm4', sender: 'Me', type: 'chat' as const, text: 'Here is a example message' },
         { id: 'm5', sender: 'Friend', type: 'chat' as const, text: 'Here is a example message' },
-        { id: 'm6', sender: 'Friend', type: 'video' as const, status: 'received' as const, text: 'Opened' },
-        { id: 'm7', sender: 'Friend', type: 'snap' as const, status: 'received' as const, text: 'Opened' },
+        { id: 'm6', sender: 'Friend', type: 'video' as const, status: 'received' as const, text: 'Received' },
+        { id: 'm7', sender: 'Friend', type: 'snap' as const, status: 'received' as const, text: 'Received' },
       ]
     },
     {
@@ -56,7 +56,7 @@ export default function ConversationView({ chat, onClose }: ConversationViewProp
       />
 
       {/* Messages Area - Figma exact layout */}
-      <div className="flex-1 flex p-1 bg-white">
+      <div className="flex-1 flex p-3 bg-white">
         <div 
           className="flex-1 rounded-xl border border-[#E1E1E1] bg-white overflow-auto"
           style={{ 

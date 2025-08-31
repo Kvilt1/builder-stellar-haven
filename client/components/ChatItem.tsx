@@ -145,7 +145,7 @@ export default function ChatItem({
             />
 
             <span className="text-xs text-chat-status-text font-avenir font-normal leading-normal capitalize">
-              {status}
+              {status === 'sent' ? 'Opened' : 'Received'}
             </span>
 
             <span className="text-xs text-chat-status-text font-avenir font-bold leading-normal">
