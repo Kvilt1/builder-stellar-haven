@@ -17,7 +17,7 @@ interface Chat {
   name: string;
   status: "received" | "sent";
   timestamp: string;
-  messageType: "chat" | "snap" | "video";
+  messageType: "chat" | "snap" | "video" | "voice";
   bitmoji?: string;
 }
 

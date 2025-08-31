@@ -9,6 +9,9 @@ export const getIconUrl = (messageType: string, status: string): string => {
     "snap-sent": "/assets/icons16x17/snap-sent.svg",
     "video-received": "/assets/icons16x17/video-received.svg",
     "chat-sent": "/assets/icons16x17/chat-sent.svg",
+    // Voice messages use chat icons as requested
+    "voice-received": "/assets/icons16x17/chat-received.svg",
+    "voice-sent": "/assets/icons16x17/chat-sent.svg",
   };
 
   const key = `${messageType}-${status}`;
