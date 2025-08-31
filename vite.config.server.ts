@@ -45,6 +45,8 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./client"),
       "@shared": path.resolve(__dirname, "./shared"),
+      "@modules": path.resolve(__dirname, "./client/modules"),
+      "@ds": path.resolve(__dirname, "./client/modules/design-system"),
     },
   },
   define: {

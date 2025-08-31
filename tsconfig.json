@@ -29,7 +29,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./client/*"],
-      "@shared/*": ["./shared/*"]
+      "@shared/*": ["./shared/*"],
+      "@modules/*": ["./client/modules/*"],
+      "@ds/*": ["./client/modules/design-system/*"]
     }
   },
   "include": [
